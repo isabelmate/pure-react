@@ -1,0 +1,88 @@
+//global scope
+function foo1(){
+    //local scope 1
+    function foo2(){
+        //local scope 2
+    }
+}
+
+//global scope
+function foo3(){
+    //local scope 3
+}
+
+//global scope
+
+-------------------------
+
+Function Scope
+Whenever you declare a variable in a function, the variable is visible only within the function. You can't access it
+outside the function. var is the keyword to define variable for a function-scope accessibility.
+
+function foo(){
+    var fruit ='apple';
+    console.log('inside function: ',fruit);
+}
+
+foo();                    //inside function: apple
+console.log(fruit);       //error: fruit is not defined 
+
+-------------------------
+
+Block Scope
+A block scope is the area within if, switch conditions or for and while loops. Generally speaking, whenever you see {curly brackets}, it is a block. In ES6, const and let keywords allow developers to declare variables in the block scope, which means those variables exist only within the corresponding block.
+
+function foo(){
+    if(true){
+        var fruit1 = 'apple';        //exist in function scope
+        const fruit2 = 'banana';     //exist in block scope
+        let fruit3 = 'strawberry';   //exist in block scope
+
+    }
+    console.log(fruit1);
+    console.log(fruit2);
+    console.log(fruit3);
+}
+
+foo();
+//result:
+//apple
+//error: fruit2 is not defined
+//error: fruit3 is not defined
+
+-------------------------
+
+Lexical Scope
+Another point to mention is the lexical scope. Lexical scope means the children scope have the access to the variables defined in the parent scope. The children functions are lexically bound to the execution context of their parents.
+
+function foo1(){
+    var fruit1 = 'apple';
+    const fruit2 = 'banana';
+    let fruit3 = 'strawberry';
+    function foo2(){
+        console.log(fruit1);
+        console.log(fruit2);
+        console.log(fruit3);
+    }
+    foo2();
+}
+
+foo1();
+
+//result:
+//apple
+//banana
+//strawberry
+
+
+If you’re familiar with languages like C or Java, you’re familiar with block scoping. As you may know,
+JavaScript’s var is actually function-scoped, not block-scoped. This has long been an annoyance (especially in for loops). But no more!
+ES6 adds let and const as two new ways of declaring block-scoped variables.
+The let keyword defines a mutable (changeable) variable. You can use it instead of var almost everywhere.
+The const defines a constant. It will throw an error if you try to reassign the variable, but it’s worth
+noting that it does not prevent you from modifying the data within that variable. Here’s an example:
+const answer = 42;
+answer = 43; // error!
+const numbers = [1, 2, 3];
+numbers[0] = 'this is fine'; // no error
+Using const is more of a signal of intent than a bulletproof protection scheme, but it is still worthwhile.
